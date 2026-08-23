@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="Upload meeting audio and receive a transcript, decisions, and action items."
+    >
+    <title>MinuteMind - Meeting Summarizer</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="MinuteMind home">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span>MinuteMind</span>
+      </a>
+      <span class="privacy-note">Audio is processed, not stored</span>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="eyebrow">AI meeting notes</div>
+        <h1 id="hero-title">Turn conversations into clear next steps.</h1>
+        <p class="hero-copy">
+          Upload a recording. MinuteMind transcribes the discussion and organizes
+          the outcome into decisions, action items, and open questions.
+        </p>
+      </section>
+
+      <section class="workspace" aria-label="Meeting summarizer">
+        <form id="meeting-form" class="upload-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="step">01</span>
+              <h2>Add your meeting</h2>
+            </div>
+            <span id="api-status" class="status-pill">Checking setup...</span>
+          </div>
+
+          <label class="field">
+            <span>Meeting title <small>Optional</small></span>
+            <input
+              id="title"
+              name="title"
+              type="text"
+              maxlength="100"
+              placeholder="Weekly product sync"
+              autocomplete="off"
+            >
+          </label>
+
+          <label id="drop-zone" class="drop-zone" for="audio">
+            <input
+              id="audio"
+              name="audio"
+              type="file"
+              accept=".flac,.m4a,.mp3,.mp4,.mpeg,.mpga,.oga,.ogg,.wav,.webm"
+              required
+            >
+            <span class="upload-icon" aria-hidden="true">↑</span>
+            <strong id="file-label">Drop audio here or choose a file</strong>
+            <span id="file-help">MP3, M4A, WAV, WEBM, MP4, OGG, or FLAC · max 25 MB</span>
+          </label>
+
+          <label class="field">
+            <span>Names &amp; vocabulary <small>Optional</small></span>
+            <textarea
+              id="context"
+              name="context"
+              maxlength="500"
+              rows="3"
+              placeholder="Names, acronyms, or technical terms that may help transcription"
+            ></textarea>
+          </label>
+
+          <button id="submit-button" class="primary-button" type="submit">
+            <span>Generate meeting notes</span>
+            <span aria-hidden="true">→</span>
+          </button>
+          <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+        </form>
+
+        <div id="empty-result" class="result-placeholder">
+          <span class="step">02</span>
+          <div class="placeholder-art" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i>
+          </div>
+          <h2>Your meeting brief will appear here</h2>
+          <p>Transcript, decisions, and assigned next steps - ready to review and share.</p>
+        </div>
+
+        <article id="result" class="result-panel" hidden aria-live="polite">
+          <div class="result-header">
+            <div>
+              <span class="step">02 · Meeting brief</span>
+              <h2 id="result-title"></h2>
+              <p id="result-meta" class="result-meta"></p>
+            </div>
+            <button id="copy-button" class="secondary-button" type="button">Copy notes</button>
+          </div>
+
+          <section class="summary-block">
+            <h3>Overview</h3>
+            <p id="overview"></p>
+          </section>
+
+          <div class="result-grid">
+            <section>
+              <h3>Key decisions</h3>
+              <ul id="decisions" class="clean-list"></ul>
+            </section>
+            <section>
+              <h3>Open questions</h3>
+              <ul id="questions" class="clean-list"></ul>
+            </section>
+          </div>
+
+          <section>
+            <h3>Action items</h3>
+            <div id="actions" class="action-list"></div>
+          </section>
+
+          <details class="transcript-block">
+            <summary>Full transcript</summary>
+            <p id="transcript"></p>
+          </details>
+        </article>
+      </section>
+
+      <section class="history-section" aria-labelledby="history-title">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Saved locally</span>
+            <h2 id="history-title">Recent meetings</h2>
+          </div>
+          <button id="refresh-button" class="text-button" type="button">Refresh</button>
+        </div>
+        <div id="history" class="history-list">
+          <p class="muted">Loading recent meetings...</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>MinuteMind</span>
+      <span>Built for focused, action-oriented meetings.</span>
+    </footer>
+  </body>
+</html>
