@@ -26,7 +26,11 @@ the overview, key decisions, action items, and open questions.
 | Optional frontend | Responsive upload, results, transcript, and history interface |
 | Effective LLM prompt | Grounded prompt that separates untrusted transcript content and forbids invented facts |
 | GitHub repo and README | This repository and document |
-| Demo video | Submitted separately with the assignment |
+| Demo video | Drive link to demo added below |
+
+## Demo video
+
+https://drive.google.com/file/d/1IOJBIwuMPeEtStcQMo4gNVndGqRiy0K6/view?usp=drivesdk
 
 ## Architecture
 
